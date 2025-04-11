@@ -1,13 +1,13 @@
 # Triven
 > A multi-language markdown-based blog generator.
 
-[![CircleCI](https://circleci.com/gh/glorious-codes/glorious-triven/tree/master.svg?style=svg)](https://circleci.com/gh/glorious-codes/glorious-triven/tree/master)
-[![Coverage Status](https://coveralls.io/repos/github/glorious-codes/glorious-triven/badge.svg?branch=master)](https://coveralls.io/github/glorious-codes/glorious-triven?branch=master)
+[![CircleCI](https://circleci.com/gh/compilorama/triven/tree/master.svg?style=svg)](https://circleci.com/gh/compilorama/triven/tree/master)
+[![Coverage Status](https://coveralls.io/repos/github/compilorama/triven/badge.svg?branch=master)](https://coveralls.io/github/compilorama/triven?branch=master)
 
 ## Installation
 
 ```
-npm install -D @glorious/triven
+npm install -D @compilorama/triven
 ```
 
 ## Usage
@@ -95,7 +95,7 @@ module.exports = {
     date: (isoDateString, lang) => {
       const [year, month, day] = isoDateString.split('-');
       const date = new Date(parseInt(year), parseInt(month)-1, parseInt(day), 0);
-      const options = { day: 'numeric', month: 'long', year: 'numeric' }
+      const options = { day: 'numeric', month: 'long', year: 'numeric' };
       return Intl.DateTimeFormat(lang, options).format(date);
     }
   }

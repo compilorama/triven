@@ -1,5 +1,5 @@
 {
-  "name": "@glorious/triven",
+  "name": "@compilorama/triven",
   "version": "1.7.0",
   "description": "A markdown-based blog generator",
   "main": "src/index.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/glorious-codes/glorious-triven.git"
+    "url": "git+ssh://git@github.com/compilorama/triven.git"
   },
   "keywords": [
     "markdown",
@@ -22,9 +22,9 @@
   "author": "Rafael Camargo <hello@rafaelcamargo.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/glorious-codes/glorious-triven/issues"
+    "url": "https://github.com/compilorama/triven/issues"
   },
-  "homepage": "https://github.com/glorious-codes/glorious-triven#readme",
+  "homepage": "https://github.com/compilorama/triven#readme",
   "devDependencies": {
     "@babel/eslint-parser": "^7.18.9",
     "@babel/plugin-proposal-throw-expressions": "^7.14.5",
