@@ -53,6 +53,14 @@ module.exports = {
   // Default: 'excerpt'.
   // Note: Excerpts are automatically generated using
   // the first 340 characters of the post body.
+  articleVars: {
+    // You can optionally set variables in your articles
+    // to be replaced with custom values in build time:
+    someCustomHtml: '<div class="my-custom-element">Hello!</div>',
+    // If a variable depends on the page language,
+    // you can set a function as value to handle any custom logic:
+    customButtonText: lang => lang == 'pt-BR' ? 'Enviar' : 'Send'
+  },
   templates: {
     article: './some/path/to/article/template.html',
     // You can optionally set an HTML file as template for articles

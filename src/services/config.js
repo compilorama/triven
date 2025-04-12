@@ -18,6 +18,8 @@ _public.getCustomTemplateVars = () => {
   });
 };
 
+_public.getArticleVars = () => getConfig().articleVars;
+
 _public.getDateFormatter = () => {
   const { formatters } = getConfig();
   return formatters && formatters.date;

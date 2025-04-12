@@ -104,4 +104,20 @@ describe('Articles Service', () => {
     const { article } = articleService.build(postData, ['en-US']);
     expect(article).toContain('<meta name="robots" content="noindex, nofollow">');
   });
+
+  it('should replace custom article variables', () => {
+    mockTrivenConfig({
+      articleVars: {
+        regularVar: '<p>123</p>',
+        extraSpacedVar: lang => `<p>${lang}</p>`,
+        noSpaceVar: '<div>456</div>'
+      }
+    });
+    const filepaths = [path.join(__dirname, '../mocks/article-vars.md')];
+    const [postData] = postsService.buildData(filepaths);
+    const { article } = articleService.build(postData, ['en-US']);
+    expect(article).toContain('<p>123</p>');
+    expect(article).toContain('<p>en-US</p>');
+    expect(article).toContain('<div>456</div>');
+  });
 });

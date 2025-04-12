@@ -1,11 +1,13 @@
 const path = require('path');
 const assetsService = require('./assets');
 const articleDateService = require('./article-date');
+const configService = require('./config');
 const domService = require('./dom');
 const excerptService = require('./excerpt');
 const markdownService = require('./markdown');
 const templateService = require('./template');
 const translationService = require('./translation');
+const variableService = require('./variable');
 
 const ARTICLE_VAR_NAME = 'triven:article';
 const FOOTER_VAR_NAME = 'triven:footer';
@@ -14,7 +16,13 @@ const _public = {};
 
 _public.build = ({ filepath, summary, markdownText }, languages = []) => {
   const article = assetsService.handleRelativeAssets(
-    markdownService.convert(markdownText),
+    markdownService.convert(
+      variableService.replaceVars(
+        markdownText,
+        configService.getArticleVars(),
+        summary.lang
+      )
+    ),
     { baseDir: path.dirname(filepath), assetsDirPrefix: '../' }
   );
   return {
