@@ -2,6 +2,7 @@ const { EXCERPT, DESCRIPTION } = require('../constants/postIntroTypes');
 const configService = require('./config');
 const articleDateService = require('./article-date');
 const domService = require('./dom');
+const markdownService = require('./markdown');
 const settingsService = require('./settings');
 const templateService = require('./template');
 const translationService = require('./translation');
@@ -57,7 +58,12 @@ function handleSectionLangAttribute(language, postLang){
 
 function buildPostIntroduction(post){
   const type = configService.get().homepagePostIntroType;
-  return type == DESCRIPTION ? post[DESCRIPTION] : post[EXCERPT];
+  const content = type == DESCRIPTION ? post[DESCRIPTION] : post[EXCERPT];
+  return removeEmbracingParagraphTags(markdownService.convert(content).trim());
+}
+
+function removeEmbracingParagraphTags(htmlString){
+  return htmlString.replace(/^<p>/, '').replace(/<\/p>$/, '');
 }
 
 function handleFooter(page, total, translations){

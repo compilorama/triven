@@ -155,6 +155,60 @@ describe('Page Service', () => {
     });
   });
 
+  it('should handle page with excerpts containing html code', done => {
+    const title = 'Test Blog';
+    mockTrivenConfig({ title });
+    const postSumary = {
+      title: 'Debouncing requests with React Query',
+      date: '2023-02-24',
+      url: 'https://rafaelcamargo.com/deboucing-requests-with-react-query',
+      lang: 'en-US',
+      description: 'This description is free of html syntax.',
+      excerpt: 'This excerpt uses `<Component />` in it.'
+    };
+    buildPage([postSumary], { page: 1, total: 1 }, page => {
+      expect(page).toEqual(domService.minifyHTML(`
+        <!DOCTYPE html>
+        <html lang="en-US">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+            <link rel="stylesheet" href="a/triven-${getExpectedTrivenStylesheetHash()}.css">
+            <title>${title}</title>
+          </head>
+          <body>
+            <main class="tn-main">
+              <ul class="tn-post-list">
+                <li>
+                  <article itemscope itemtype="http://schema.org/BlogPosting">
+                    <header class="tn-header">
+                      <h2 class="tn-post-title"><a href="https://rafaelcamargo.com/deboucing-requests-with-react-query">Debouncing requests with React Query</a></h2>
+                      <time class="tn-date" itemprop="dateCreated pubdate datePublished" datetime="2023-02-24">2/24/2023</time>
+                    </header>
+                    <p>This excerpt uses <code>&lt;Component /&gt;</code> in it.</p>
+                    <footer class="tn-footer">
+                      <a href="https://rafaelcamargo.com/deboucing-requests-with-react-query" class="tn-read-more-link">
+                        Read more<span class="tn-screen-reader-only">: Debouncing requests with React Query</span>
+                      </a>
+                    </footer>
+                  </article>
+                </li>
+              </ul>
+            </main>
+            <div class="tn-settings">
+              <div class="tn-settings-content">
+                <div class="tn-settings-rss-feed">
+                  <a href="./feed.atom">RSS Feed</a>
+                </div>
+              </div>
+            </div>
+          </body>
+        </html>
+      `));
+      done();
+    });
+  });
+
   it('should optionally prefix assets href in the html', done => {
     const hrefPrefixes = { asset: '../../../../' };
     buildPage(postsMock, { page: 2, total: 2, hrefPrefixes }, page => {
