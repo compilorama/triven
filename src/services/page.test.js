@@ -164,7 +164,7 @@ describe('Page Service', () => {
       url: 'https://rafaelcamargo.com/deboucing-requests-with-react-query',
       lang: 'en-US',
       description: 'This description is free of html syntax.',
-      excerpt: 'This excerpt uses `<Component />` in it.'
+      excerpt: 'This excerpt uses <Component /> in it.'
     };
     buildPage([postSumary], { page: 1, total: 1 }, page => {
       expect(page).toEqual(domService.minifyHTML(`

@@ -2,7 +2,6 @@ const { EXCERPT, DESCRIPTION } = require('../constants/postIntroTypes');
 const configService = require('./config');
 const articleDateService = require('./article-date');
 const domService = require('./dom');
-const markdownService = require('./markdown');
 const settingsService = require('./settings');
 const templateService = require('./template');
 const translationService = require('./translation');
@@ -59,11 +58,13 @@ function handleSectionLangAttribute(language, postLang){
 function buildPostIntroduction(post){
   const type = configService.get().homepagePostIntroType;
   const content = type == DESCRIPTION ? post[DESCRIPTION] : post[EXCERPT];
-  return removeEmbracingParagraphTags(markdownService.convert(content).trim());
+  return handleHTMLTags(content);
 }
 
-function removeEmbracingParagraphTags(htmlString){
-  return htmlString.replace(/^<p>/, '').replace(/<\/p>$/, '');
+function handleHTMLTags(text){
+  const regex = /<[^>]+>/g;
+  const escape = string => string.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return text.replace(regex, (match) => `<code>${escape(match)}</code>`);
 }
 
 function handleFooter(page, total, translations){
